@@ -11,7 +11,7 @@ categories = ["graphics", "rendering"]
 exclude = ["examples/", "images/", ".gitignore"]
 
 [dependencies]
-ab_glyph = "0.2.31"
+ab_glyph = "0.2.30"
 ahash = "0.8.12"
 image = "0.25.6"
 itertools = "0.14.0"
