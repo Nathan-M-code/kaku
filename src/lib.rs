@@ -312,13 +312,13 @@ fn create_text_pipeline(
         layout: Some(layout),
         vertex: wgpu::VertexState {
             module: shader,
-            entry_point: "vs_main",
+            entry_point: "vs_main".into(),
             buffers: &[texture_vertex_layout(), character_instance_layout()],
             compilation_options: Default::default(),
         },
         fragment: Some(wgpu::FragmentState {
             module: shader,
-            entry_point: "fs_main",
+            entry_point: "fs_main".into(),
             compilation_options: Default::default(),
             targets: &[Some(wgpu::ColorTargetState {
                 format: render_format,
@@ -343,6 +343,7 @@ fn create_text_pipeline(
             alpha_to_coverage_enabled: false,
         },
         multiview: None,
+        cache: None,
     })
 }
 
@@ -869,14 +870,14 @@ impl TextRenderer {
         });
 
         queue.write_texture(
-            wgpu::ImageCopyTexture {
+            wgpu::TexelCopyTextureInfo {
                 texture: &texture,
                 mip_level: 0,
                 origin: wgpu::Origin3d::ZERO,
                 aspect: wgpu::TextureAspect::All,
             },
             image,
-            wgpu::ImageDataLayout {
+            wgpu::TexelCopyBufferLayout {
                 offset: 0,
                 bytes_per_row: Some(image.width()),
                 rows_per_image: Some(image.height()),

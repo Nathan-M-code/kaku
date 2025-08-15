@@ -16,7 +16,7 @@ impl Renderer {
         pollster::block_on(async {
             let size = window.inner_size();
 
-            let instance = wgpu::Instance::new(wgpu::InstanceDescriptor {
+            let instance = wgpu::Instance::new(&wgpu::InstanceDescriptor {
                 backends: wgpu::Backends::PRIMARY,
                 ..Default::default()
             });
@@ -44,8 +44,9 @@ impl Renderer {
                             wgpu::Limits::default()
                         },
                         label: None,
+                        memory_hints: wgpu::MemoryHints::default(),
+                        trace: wgpu::Trace::Off,
                     },
-                    None, // Trace path
                 )
                 .await
                 .unwrap();
